@@ -2,7 +2,7 @@
 import random
 
 def roulette():
-    guess = random.randint(1, 6)
+    guess = random.randint(1, 7)
 
     input("Press Enter to SHoot the Roulette! ")
 
