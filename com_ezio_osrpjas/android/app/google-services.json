@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "479034130486",
+    "project_id": "rpjas-mobile",
+    "storage_bucket": "rpjas-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479034130486:android:345c8f2e2aee359ebad897",
+        "android_client_info": {
+          "package_name": "com.example.com_ezio_osrpjas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYBInRn4YepYp-00Ou9Vig9lIxRl0lbi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
