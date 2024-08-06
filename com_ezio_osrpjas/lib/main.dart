@@ -13,7 +13,7 @@ void main() async {
   runApp(const MyApp());
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  firestore.collection('users').add({
+  firestore.collection('users').doc("Jhon Artan").set({
     'name': 'Ezio',
     'age': 24,
   });
