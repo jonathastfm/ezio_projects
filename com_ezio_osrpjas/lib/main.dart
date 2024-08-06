@@ -14,9 +14,12 @@ void main() async {
   runApp(const MyApp());
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  firestore.collection('users').doc("Jhon Artan").set({
-    'name': 'Ezio',
-    'age': 24,
+  firestore.collection('Classes').doc("Artifice").collection("Criacao").doc("Equipamento inicial").set({
+    "Armas": ["Duas armas simples", "Uma besta leve e 20 virotes"],
+    "Armadura": "Armadura de couro ou uma brunea",
+    "Ferramentas": "Um kit de ferramentas de ladrão eum pacote de explorador",
+    "Ouro": 100
+
   });
 
   
@@ -31,21 +34,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
+        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
