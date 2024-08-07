@@ -15,7 +15,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
   FirebaseFirestore firestore = FirebaseFirestore.instance; 
 
   int _currentStep = 0;
-  List<int> vida = [];
+  int vida = 0;
 
   List<String> Armaduras = ["Armaduras leves", "Armaduras medias", "Armaduras pesadas", "Escudos"];
 
@@ -51,7 +51,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
               children: [
                 Text("Dado de Vida: ", style: TextStyle(fontSize: 20),),
                 DropdownButton<int>(
-                  value: vida.isEmpty ? null : vida[0],
+                  value: vida!=0?vida:null,
                   items: List.generate(4, (index) => (index*2)+6).map((int value) {
                     return DropdownMenuItem<int>(
                       value: value,
@@ -60,8 +60,8 @@ class _Creating_ClassesState extends State<Creating_Classes> {
                   }).toList(),
                   onChanged: (int? value) {
                     setState(() {
-                      vida.clear();
-                      vida.add(value!);
+                      
+                      vida=value!;
                     });
                   },
                 ),
