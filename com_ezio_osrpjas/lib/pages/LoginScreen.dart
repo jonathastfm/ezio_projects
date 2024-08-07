@@ -1,6 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  LoginScreen({super.key});
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +38,12 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                // TODO: Implement login logic
+                widget.firestore.collection('Classes').doc("Artifice").collection("Criacao").doc("Equipamento inicial").set({
+                  "Armas": ["Duas armas simples", "Uma besta leve e 20 virotes"],
+                  "Armadura": "Armadura de couro ou uma brunea",
+                  "Ferramentas": ["ferramentas de ladrão", "pacote de explorador"],
+                  "Ouro": 100
+                });
               },
               child: Text('Login'),
             ),
@@ -36,10 +52,4 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: LoginScreen(),
-  ));
 }
