@@ -18,9 +18,13 @@ class _Creating_ClassesState extends State<Creating_Classes> {
   int vida = 0;
 
   List<String> Armaduras = ["Armaduras leves", "Armaduras medias", "Armaduras pesadas", "Escudos"];
-
   
-  List<String> Proficiencias_escolhidas = [];
+  List<String> Armas = ["Armas simples", "Armas marciais", "Armas de fogo", "Arco e flecha", "Bestas",
+                        "Cajado", "Dardos", "Espada curta", "Espada longa", "Espada larga","Funda",
+                         "Lança", "Maça", "Machado", "Martelo"];  
+  
+  List<String> Armaduras_escolhidas = [];
+  List<String> Armas_escolhidas = [];
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +78,8 @@ class _Creating_ClassesState extends State<Creating_Classes> {
             title: const Text('Proficiencias'),
             content: Column(
               children: [
+
+                //Armaduras
                 Text("Armaduras",   style: TextStyle(fontSize: 20),),
                 
                 ListView.builder(
@@ -82,23 +88,71 @@ class _Creating_ClassesState extends State<Creating_Classes> {
                   itemBuilder: (context, index){
                     return CheckboxListTile(
                       title: Text(Armaduras[index]),
-                      value: Proficiencias_escolhidas.contains(Armaduras[index]),
+                      value: Armaduras_escolhidas.contains(Armaduras[index]),
                       onChanged: (value){
                         setState(() {
                           if(value == true){
-                              Proficiencias_escolhidas.add(Armaduras[index]);
+                              Armaduras_escolhidas.add(Armaduras[index]);
                           }
                           else{
-                              Proficiencias_escolhidas.remove(Armaduras[index]);
+                              Armaduras_escolhidas.remove(Armaduras[index]);
                           }
                         });
                       },
                     );
                   },
-                ),      
+                ), 
+                //Armas
+                Text("Armas",   style: TextStyle(fontSize: 20),),
+
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: Armas.length,
+                  itemBuilder: (context, index){
+                    return CheckboxListTile(
+                      title: Text(Armas[index]),
+                      value: Armaduras_escolhidas.contains(Armas[index]),
+                      onChanged: (value){
+                        setState(() {
+                          if(value == true){
+                              Armas_escolhidas.add(Armas[index]);
+                          }
+                          else{
+                              Armas_escolhidas.remove(Armas[index]);
+                          }
+                        });
+                      },
+                    );
+                  },
+                ),
+                
+                //Ferramentas     
               ],
             ),
           ),    
+
+          
+
+
+          Step(
+            title: const Text('Finalizar'),
+            content: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    firestore.collection('Classes').doc("Artifice").collection("Criacao").doc("Equipamento inicial").set({
+                      "Armas": ["Duas armas simples", "Uma besta leve e 20 virotes"],
+                      "Armadura": "Armadura de couro ou uma brunea",
+                      "Ferramentas": ["ferramentas de ladrão", "pacote de explorador"],
+                      "Ouro": 100
+                    });
+                  },
+                  child: Text('Finalizar'),
+                ),
+              ],
+            ),
+          ),
+        
         ]
       )
     );
