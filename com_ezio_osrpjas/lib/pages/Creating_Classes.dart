@@ -14,21 +14,28 @@ class _Creating_ClassesState extends State<Creating_Classes> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance; 
 
+  //Var do step atual
   int _currentStep = 0;
 
+  //Var do nome da classe
   TextEditingController nome = TextEditingController();
-
+  
   //valor do dado de vida
   int vida = 0;
 
  //Listas de armas, armaduras e ferramentas 
   List<String> Armaduras = ["Armaduras leves", "Armaduras medias", "Armaduras pesadas", "Escudos"];
   
-  List<String> Armas = ["Armas simples", "Armas marciais", "Armas de fogo", "Arco e flecha", "Bestas",
+  List<String> Armas = ["Armas simples", "Armas marciais", "Armas de fogo", "Arco e flecha","4 Azagaias", "Adaga", "Bestas",
                         "Cajado", "Dardos", "Espada curta", "Espada longa", "Espada larga","Funda",
                          "Lança", "Maça", "Machado", "Martelo"];  
 
-  List<String> Ferramentas = ["Ferramentas de ladrão", "Ferramentas de artesão", "Ferramentas de herbalista", "Ferramentas de cozinheiro", "Ferramentas de ferreiro",  "Kit Medico", "Instrumento Musical"];
+  List<String> Ferramentas = [
+                              "Bolsa de componentes", "Foco arcano",
+                              "Ferramentas de ladrão", "Ferramentas de artesão", "Ferramentas de herbalista",
+                              "Ferramentas de cozinheiro", "Ferramentas de ferreiro",  "Kit Medico", "Instrumento Musical",
+                              "Pacote de Esplorador", "Pacote de Aventureiro", "Pacote de Diplomata", "Pacote de Artista",
+                              ];
   
   //Listas de armas, armaduras e ferramentas escolhidas
   List<String> Armaduras_escolhidas = [];
@@ -36,8 +43,23 @@ class _Creating_ClassesState extends State<Creating_Classes> {
   List<String> Ferramentas_escolhidas = [];
 
   //Pericias
-  List<String> Pericias = ["Acrobacia", "Arcanismo", "Atletismo", "Blefar", "Furtividade", "Historia", "Intimidação", "Intuição", "Investigação", "Lidar com animais", "Medicina", "Natureza", "Percepção", "Persuasão", "Prestidigitação", "Religião", "Sobrevivência"];
+  List<String> Pericias = [
+                          "Acrobacia", "Arcanismo", "Atletismo", "Blefar", "Furtividade", "Historia",
+                          "Intimidação", "Intuição", "Investigação", "Lidar com animais", "Medicina",
+                          "Natureza", "Percepção", "Persuasão", "Prestidigitação", "Religião",
+                          "Sobrevivência"
+                          ];
   List<String> Pericias_escolhidas = [];
+
+  List<String> Salvaguardas = ["Força", "Destreza", "Constituição", "Inteligência", "Sabedoria", "Carisma"];
+  List<String> Salvaguardas_escolhidas = [];
+
+  
+  
+  List<String> Equipamentos_escolhidos_armaduras = [];
+  List<String> Equipamentos_escolhidos_armas = [];
+  List<String> Equipamentos_escolhidos_ferramentas = [];
+  List<String> Equipamentos_escolhidos_ouro = [];
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +69,16 @@ class _Creating_ClassesState extends State<Creating_Classes> {
         
       ),
       body: Stepper(
+        onStepTapped: (step) {
+          setState(() {
+            _currentStep = step;
+          });
+        },
+        
         currentStep: _currentStep,
+        
         onStepContinue: () {
-          if (_currentStep < 4) {
+          if (_currentStep < 6) {
             setState(() {
               _currentStep += 1;
             });
@@ -64,6 +93,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
         },
         steps: <Step>[
 
+          //Nome da classe
           Step(
             title: Text("Nome da Classe"), 
             content: SizedBox(
@@ -82,6 +112,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
             ),
           ),
 
+          //Dados de vida
           Step(
             title: const Text('Dados de vida'),
             content: Row(
@@ -107,6 +138,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
             
           ),
           
+          //Proficiencias
           Step(
             title: const Text('Proficiencias'),
             content: Column(
@@ -188,7 +220,8 @@ class _Creating_ClassesState extends State<Creating_Classes> {
               ],
             ),
           ),    
-
+          
+          //Pericias
           Step(
             title: Text("Pericias"), 
 
@@ -221,14 +254,154 @@ class _Creating_ClassesState extends State<Creating_Classes> {
           
           ),
 
-
+          //Salvaguardas
           Step(
+            title: Text("Salvaguardas"), 
+
+            content: Column(
+              children: [
+
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: Salvaguardas.length,
+                  itemBuilder: (context, index){
+                    return CheckboxListTile.adaptive(
+                      title: Text(Salvaguardas[index]),
+                      value: Salvaguardas_escolhidas.contains(Salvaguardas[index]),
+                      onChanged: (value){
+                        setState(() {
+                          if(value == true){
+                              Salvaguardas_escolhidas.add( Salvaguardas[index]);
+                          }
+                          else{
+                              Salvaguardas_escolhidas.remove(Salvaguardas[index]);
+                          }
+                        });
+                      },
+                    );
+                  },
+                ), 
+              ],
+            ),
+          
+          
+          ),
+          
+          //Equipamentos iniciais
+          Step(
+            title: Text("Equipamentos iniciais"), 
+
+            content: Column(
+              children: [
+                //Armaduras
+                Text("Armaduras",   style: TextStyle(fontSize: 20),),
+                
+                GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  shrinkWrap: true,
+                  itemCount: Armaduras.length,
+                  itemBuilder: (context, index){
+                    return Column(
+                      children: [
+
+                        Text(Armaduras[index]),
+                        Checkbox(
+                          
+                          value: Equipamentos_escolhidos_armaduras.contains(Armas[index]),
+                          onChanged: (value){
+                            setState(() {
+                              if(value == true){
+                                  Equipamentos_escolhidos_armaduras.add(Armas[index]);
+                              }
+                              else{
+                                  Equipamentos_escolhidos_armaduras.remove(Armas[index]);
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ), 
+                //Armas
+                  Text("Armas",   style: TextStyle(fontSize: 20),),
+
+                  GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    shrinkWrap: true,
+                    itemCount: Armas.length,
+                    itemBuilder: (context, index){
+                      return Column(
+                        children: [
+
+                          Text(Armas[index]),
+                          Checkbox(
+                            
+                            value: Equipamentos_escolhidos_armas.contains(Armas[index]),
+                            onChanged: (value){
+                              setState(() {
+                                if(value == true){
+                                    Equipamentos_escolhidos_armas.add(Armas[index]);
+                                }
+                                else{
+                                    Equipamentos_escolhidos_armas.remove(Armas[index]);
+                                }
+                              });
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+
+                //Ferramentas  
+                Text("Ferramentas",   style: TextStyle(fontSize: 20),),
+
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: Ferramentas.length,
+                  itemBuilder: (context, index){
+                    return CheckboxListTile(
+                      title: Text(Ferramentas[index]),
+                      value: Equipamentos_escolhidos_ferramentas.contains(Ferramentas[index]),
+                      onChanged: (value){
+                        setState(() {
+                          if(value == true){
+                              Equipamentos_escolhidos_ferramentas.add(Ferramentas[index]);
+                          }
+                          else{
+                              Equipamentos_escolhidos_ferramentas.remove(Ferramentas[index]);
+                          }
+                        });
+                      },
+                    );
+                  },
+                ),
+
+                
+              ],
+            ),
+          
+          
+          ),
+
+          //Finalizar
+          Step(
+            
             title: const Text('Finalizar'),
             content: Column(
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    firestore.collection('Classes').doc(nome.text).collection("Criacao").doc("vida").set({
+                    firestore.collection('Classes').doc(nome.text).collection("Criacao").doc("Vida").set({
                       "Dado de vida": vida,
                       "dado de vida por nivel": ((vida/2)+1),
                       "pv inicial": vida
@@ -237,14 +410,34 @@ class _Creating_ClassesState extends State<Creating_Classes> {
                     firestore.collection('Classes').doc(nome.text).collection("Criacao").doc("Proficiencias").set({
                       "Armaduras": Armaduras_escolhidas,
                       "Armas": Armas_escolhidas,
-                      "Ferramentas": Ferramentas_escolhidas
+                      "Ferramentas": Ferramentas_escolhidas,
+                      "Pericias": Pericias_escolhidas,
+                      "Salvaguardas": Salvaguardas_escolhidas,
                     });
 
-                    firestore.collection("Classes").doc(nome.text).collection("Criacao").doc("Prericias").set({
-                      "Pericias": Pericias_escolhidas
+                    firestore.collection('Classes').doc(nome.text).collection("Criacao").doc("Equipamentos Iniciais").set({
+                      "Armaduras": Equipamentos_escolhidos_armaduras,
+                      "Ferramentas": Equipamentos_escolhidos_ferramentas,
+                      "Armas": Equipamentos_escolhidos_armas
                     });
+
+                    Armaduras_escolhidas = [];
+                    Armas_escolhidas = [];
+                    Ferramentas_escolhidas = [];
+
+                    Pericias_escolhidas = [];
+
+                    Equipamentos_escolhidos_armaduras = [];
+                    Equipamentos_escolhidos_armas = [];
+                    Equipamentos_escolhidos_ferramentas = [];
+                    Equipamentos_escolhidos_ouro = [];
+
+                    _currentStep = 0;
+
+
+
                   },
-                  child: Text('Finalizar'),
+                  child: Text('Submit'),
                 ),
               ],
             ),
