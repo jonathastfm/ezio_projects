@@ -33,8 +33,9 @@ class _Creating_ClassesState extends State<Creating_Classes> {
   List<String> Ferramentas = [
                               "Bolsa de componentes", "Foco arcano",
                               "Ferramentas de ladrão", "Ferramentas de artesão", "Ferramentas de herbalista",
-                              "Ferramentas de cozinheiro", "Ferramentas de ferreiro",  "Kit Medico", "Instrumento Musical",
-                              "Pacote de Esplorador", "Pacote de Aventureiro", "Pacote de Diplomata", "Pacote de Artista",
+                              "Ferramentas de cozinheiro", "Ferramentas de ferreiro", "Grimorio",  "Kit Medico", "Instrumento Musical",
+                              "Pacote de Explorador", "Pacote de Aventureiro", "Pacote de Diplomata", "Pacote de Artista",
+                              "Pacote de Sacerdote", "Pacote de Estudioso",
                               ];
   
   //Listas de armas, armaduras e ferramentas escolhidas
