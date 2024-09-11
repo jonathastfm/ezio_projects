@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+
+        
+
+        {
+            "name": "com_ezio_osrpjas",
+            "cwd": "com_ezio_osrpjas",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "com_ezio_osrpjas (profile mode)",
+            "cwd": "com_ezio_osrpjas",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "com_ezio_osrpjas (release mode)",
+            "cwd": "com_ezio_osrpjas",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

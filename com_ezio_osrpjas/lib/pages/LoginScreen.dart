@@ -16,26 +16,26 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Username',
               ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
+            const SizedBox(height: 16.0),
+            const TextField(
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 widget.firestore.collection('Classes').doc("Artifice").collection("Criacao").doc("Equipamento inicial").set({
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   "Ouro": 100
                 });
               },
-              child: Text('Login'),
+              child: const Text('Login'),
             ),
           ],
         ),

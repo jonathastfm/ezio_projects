@@ -43,7 +43,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Creating Classes'),
+        title: const Text('Creating Classes'),
         
       ),
       body: Stepper(
@@ -65,12 +65,12 @@ class _Creating_ClassesState extends State<Creating_Classes> {
         steps: <Step>[
 
           Step(
-            title: Text("Nome da Classe"), 
+            title: const Text("Nome da Classe"), 
             content: SizedBox(
               width: 300,
               child: TextField(
                 controller: nome,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Nome da Classe',
                 ),
                 onChanged: (text) {
@@ -86,7 +86,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
             title: const Text('Dados de vida'),
             content: Row(
               children: [
-                Text("Dado de Vida: ", style: TextStyle(fontSize: 20),),
+                const Text("Dado de Vida: ", style: TextStyle(fontSize: 20),),
                 DropdownButton<int>(
                   value: vida!=0?vida:null,
                   items: List.generate(4, (index) => (index*2)+6).map((int value) {
@@ -113,7 +113,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
               children: [
 
                 //Armaduras
-                Text("Armaduras",   style: TextStyle(fontSize: 20),),
+                const Text("Armaduras",   style: TextStyle(fontSize: 20),),
                 
                 ListView.builder(
                   shrinkWrap: true,
@@ -136,7 +136,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
                   },
                 ), 
                 //Armas
-                Text("Armas",   style: TextStyle(fontSize: 20),),
+                const Text("Armas",   style: TextStyle(fontSize: 20),),
 
                 ListView.builder(
                   shrinkWrap: true,
@@ -160,7 +160,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
                 ),
 
                 //Ferramentas  
-                Text("Ferramentas",   style: TextStyle(fontSize: 20),),
+                const Text("Ferramentas",   style: TextStyle(fontSize: 20),),
 
                 ListView.builder(
                   shrinkWrap: true,
@@ -190,7 +190,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
           ),    
 
           Step(
-            title: Text("Pericias"), 
+            title: const Text("Pericias"), 
 
             content: Column(
               children: [
@@ -244,7 +244,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
                       "Pericias": Pericias_escolhidas
                     });
                   },
-                  child: Text('Finalizar'),
+                  child: const Text('Finalizar'),
                 ),
               ],
             ),
