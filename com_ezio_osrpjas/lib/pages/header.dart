@@ -1,3 +1,6 @@
+import 'package:com_ezio_osrpjas/pages/Habilidades_Ficha.dart';
+import 'package:com_ezio_osrpjas/pages/Itens_Ficha.dart';
+import 'package:com_ezio_osrpjas/pages/Magias_Ficha.dart';
 import 'package:flutter/material.dart';
 import 'package:com_ezio_osrpjas/pages/Tela_Ficha.dart';
 
@@ -84,21 +87,12 @@ class Header extends StatelessWidget {
                 ),
                 title: const Text('Ficha'),
               ),
-              body: const TabBarView(
+              body: TabBarView(
                 children: [
-                  // Primeira aba com Tela_Ficha()
-                  Tela_Ficha(),
-
-                  // Outras abas com cores de fundo diferentes
-                  ColoredBox(
-                    color: Color.fromARGB(255, 21, 0, 32),
-                  ),
-                  ColoredBox(
-                    color: Color.fromARGB(255, 31, 0, 51),
-                  ),
-                  ColoredBox(
-                    color: Color.fromARGB(255, 31, 0, 51),
-                  ),
+                  const Tela_Ficha(),
+                  Habilidades_Ficha(),
+                  Magias_Ficha(),
+                  Itens_Ficha(),
                 ],
               ),
             ),
