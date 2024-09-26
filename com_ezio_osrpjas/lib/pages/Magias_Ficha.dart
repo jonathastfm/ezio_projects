@@ -15,30 +15,49 @@ class Magias_Ficha extends StatelessWidget {
       appBar: AppBar(
         title: Text('Magias do Personagem'),
       ),
-      body: ListView.builder(
-        itemCount: magias.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(magias[index]),
-            leading: Icon(Icons.auto_awesome),
-            onTap: () {
-              // Ação ao clicar na magia
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text(magias[index]),
-                  content: Text('Detalhes da magia ${magias[index]}'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Fechar'),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: const [
+              Color.fromARGB(255, 88, 0, 202),
+              Color.fromARGB(255, 47, 0, 109),
+              Color.fromARGB(255, 17, 0, 48)
+            ],
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: magias.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+                magias[index],
+                style: TextStyle(
+                    color: Colors
+                        .white), // Ajustando a cor do texto para ficar visível
+              ),
+              leading: Icon(Icons.auto_awesome,
+                  color: Colors.white), // Cor do ícone ajustada
+              onTap: () {
+                // Ação ao clicar na magia
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text(magias[index]),
+                    content: Text('Detalhes da magia ${magias[index]}'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text('Fechar'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
