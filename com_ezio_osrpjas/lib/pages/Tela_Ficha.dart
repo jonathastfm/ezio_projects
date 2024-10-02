@@ -42,7 +42,6 @@ class Tela_Ficha extends StatelessWidget {
                     ),
                   ],
                 ),
-                // linha dividindo os trem
                 const SizedBox(height: 20),
                 const Divider(
                   color: Colors.white,
@@ -75,22 +74,36 @@ class Tela_Ficha extends StatelessWidget {
   }
 
   Widget _buildAtributosTable() {
-    List<Map<String, String>> atributos = [
-      {'Força': '13'},
-      {'Destreza': '16'},
-      {'Constituição': '15'},
-      {'Inteligência': '14'},
-      {'Sabedoria': '11'},
-      {'Carisma': '9'},
+    List<Map<String, Map<String, String>>> atributos = [
+      {
+        'Força': {'valor': '13', 'modificador': '+1'}
+      },
+      {
+        'Destreza': {'valor': '16', 'modificador': '+3'}
+      },
+      {
+        'Constituição': {'valor': '15', 'modificador': '+2'}
+      },
+      {
+        'Inteligência': {'valor': '14', 'modificador': '+2'}
+      },
+      {
+        'Sabedoria': {'valor': '11', 'modificador': '0'}
+      },
+      {
+        'Carisma': {'valor': '9', 'modificador': '-1'}
+      },
     ];
 
     return _buildTable(
-        'Atributos',
-        atributos.map((atributo) {
-          String nome = atributo.keys.first;
-          String valor = atributo.values.first;
-          return _buildTableRow(nome, valor);
-        }).toList());
+      'Atributos',
+      atributos.map((atributo) {
+        String nome = atributo.keys.first;
+        String valor = atributo[nome]!['valor']!;
+        String modificador = atributo[nome]!['modificador']!;
+        return _buildTableRowComModificador(nome, valor, modificador);
+      }).toList(),
+    );
   }
 
   Widget _buildStatusTable() {
@@ -102,15 +115,15 @@ class Tela_Ficha extends StatelessWidget {
     ];
 
     return _buildTable(
-        'Status',
-        status.map((stat) {
-          String nome = stat.keys.first;
-          String valor = stat.values.first;
-          return _buildTableRow(nome, valor);
-        }).toList());
+      'Status',
+      status.map((stat) {
+        String nome = stat.keys.first;
+        String valor = stat.values.first;
+        return _buildTableRow(nome, valor);
+      }).toList(),
+    );
   }
 
-  // Tabela de Perícias
   Widget _buildPericiasTable() {
     List<Map<String, String>> pericias = [
       {'Atletismo': '8'},
@@ -134,12 +147,13 @@ class Tela_Ficha extends StatelessWidget {
     ];
 
     return _buildTable(
-        'Perícias',
-        pericias.map((pericia) {
-          String nome = pericia.keys.first;
-          String valor = pericia.values.first;
-          return _buildTableRow(nome, valor);
-        }).toList());
+      'Perícias',
+      pericias.map((pericia) {
+        String nome = pericia.keys.first;
+        String valor = pericia.values.first;
+        return _buildTableRow(nome, valor);
+      }).toList(),
+    );
   }
 
   Widget _buildTesteTable() {
@@ -153,12 +167,13 @@ class Tela_Ficha extends StatelessWidget {
     ];
 
     return _buildTable(
-        'Salvaguardas',
-        testes.map((teste) {
-          String nome = teste.keys.first;
-          String valor = teste.values.first;
-          return _buildTableRow(nome, valor);
-        }).toList());
+      'Salvaguardas',
+      testes.map((teste) {
+        String nome = teste.keys.first;
+        String valor = teste.values.first;
+        return _buildTableRow(nome, valor);
+      }).toList(),
+    );
   }
 
   Widget _buildHabilidadesTable() {
@@ -170,12 +185,13 @@ class Tela_Ficha extends StatelessWidget {
     ];
 
     return _buildTable(
-        'Proficiências',
-        habilidades.map((habilidade) {
-          String nome = habilidade.keys.first;
-          String valor = habilidade.values.first;
-          return _buildTableRow(nome, valor);
-        }).toList());
+      'Proficiências',
+      habilidades.map((habilidade) {
+        String nome = habilidade.keys.first;
+        String valor = habilidade.values.first;
+        return _buildTableRow(nome, valor);
+      }).toList(),
+    );
   }
 
   Widget _buildTable(String title, List<TableRow> rows) {
@@ -195,8 +211,8 @@ class Tela_Ficha extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           child: Table(
             border: TableBorder.all(
-              color: Colors.white,
-              width: 2,
+              color: Colors.white54,
+              width: 1.5,
             ),
             children: rows,
           ),
@@ -222,9 +238,53 @@ class Tela_Ficha extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             valor,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 18,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  TableRow _buildTableRowComModificador(
+      String atributo, String valor, String modificador) {
+    return TableRow(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            atributo,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            valor,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.lightGreenAccent,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            modificador,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.orangeAccent,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

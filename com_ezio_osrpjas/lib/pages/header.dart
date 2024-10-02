@@ -21,26 +21,23 @@ class Header extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black, // Cor preta
+                  color: Colors.black,
                 ),
               ),
-              SizedBox(height: 16), // Espaço entre o título e as informações
+              SizedBox(height: 16),
               Row(
-                mainAxisAlignment: MainAxisAlignment
-                    .spaceBetween, // Espaço entre os dois lados
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Nome: [?? nome ??]',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.black), // Cor preta
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                       Text(
                         'Raça: [?? raça ??]',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.black), // Cor preta
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
                   ),
@@ -48,21 +45,18 @@ class Header extends StatelessWidget {
                   CircleAvatar(
                     radius: 40,
                     backgroundColor: const Color.fromARGB(164, 64, 5, 119),
-                    backgroundImage: AssetImage(
-                        'assets/imagem_padrao.png'), // Substitua pelo caminho da imagem do personagem
+                    backgroundImage: AssetImage('assets/imagem_padrao.png'),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Classe: [?? classe ??]',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.black), // Cor preta
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                       Text(
                         'Nível: [?? nível ??]',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.black), // Cor preta
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
                   ),
