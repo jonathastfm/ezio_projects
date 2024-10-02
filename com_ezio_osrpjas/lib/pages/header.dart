@@ -17,11 +17,11 @@ class Header extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Área para info básicas',
+                'Informações Básicas',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: const Color.fromARGB(255, 0, 0, 0),
                 ),
               ),
               SizedBox(height: 16),
@@ -33,30 +33,45 @@ class Header extends StatelessWidget {
                     children: [
                       Text(
                         'Nome: [?? nome ??]',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: const Color.fromARGB(
+                              255, 0, 0, 0), // Texto cinza claro
+                        ),
                       ),
                       Text(
                         'Raça: [?? raça ??]',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                        ),
                       ),
                     ],
                   ),
-                  //imagem do personagem
                   CircleAvatar(
-                    radius: 40,
-                    backgroundColor: const Color.fromARGB(164, 64, 5, 119),
-                    backgroundImage: AssetImage('assets/imagem_padrao.png'),
+                    radius: 45,
+                    backgroundColor: Colors.grey[800], // Cor escura para borda
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage('assets/imagem_padrao.png'),
+                    ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Classe: [?? classe ??]',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                        ),
                       ),
                       Text(
                         'Nível: [?? nível ??]',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                        ),
                       ),
                     ],
                   ),
@@ -69,24 +84,31 @@ class Header extends StatelessWidget {
           child: DefaultTabController(
             length: 4,
             child: Scaffold(
+              backgroundColor: Colors.black,
               appBar: AppBar(
+                backgroundColor: Colors.grey[900],
                 bottom: const TabBar(
+                  indicatorColor: Colors.white,
                   tabs: [
                     Tab(
-                      icon: Icon(Icons.person),
+                      icon: Icon(Icons.person, color: Colors.white),
                     ),
                     Tab(
-                      icon: Icon(Icons.sports_mma_rounded),
+                      icon: Icon(Icons.sports_mma_rounded, color: Colors.white),
                     ),
                     Tab(
-                      icon: Icon(Icons.auto_awesome_rounded),
+                      icon:
+                          Icon(Icons.auto_awesome_rounded, color: Colors.white),
                     ),
                     Tab(
-                      icon: Icon(Icons.shield),
+                      icon: Icon(Icons.shield, color: Colors.white),
                     ),
                   ],
                 ),
-                title: const Text('Ficha'),
+                title: const Text(
+                  'Ficha do Personagem',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               body: TabBarView(
                 children: [
