@@ -31,62 +31,38 @@ class Tela_Ficha extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildTable('Atributos', [
-                            _buildTableRow('Força', '18'),
-                            _buildTableRow('Destreza', '16'),
-                            _buildTableRow('Constituição', '15'),
-                            _buildTableRow('Inteligência', '14'),
-                            _buildTableRow('Sabedoria', '12'),
-                            _buildTableRow('Carisma', '10'),
-                          ]),
-                          const SizedBox(height: 20),
+                          _buildAtributosTable(),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
                     const SizedBox(width: 20),
                     Expanded(
-                      child: _buildTable('Status', [
-                        _buildTableRow('Vida', '50'),
-                        _buildTableRow('CA', '18'),
-                        _buildTableRow('Deslocamento', '9m'),
-                      ]),
+                      child: _buildStatusTable(),
                     ),
                   ],
+                ),
+                // linha dividindo os trem
+                const SizedBox(height: 20),
+                const Divider(
+                  color: Colors.white,
+                  thickness: 2,
                 ),
                 const SizedBox(height: 20),
                 Row(
                   children: [
                     Expanded(
-                      child: _buildTable('Perícias', [
-                        _buildTableRow('Atletismo', '8'),
-                        _buildTableRow('Acrobacia', '7'),
-                        _buildTableRow('Furtividade', '6'),
-                        _buildTableRow('Prestidigitação', '5'),
-                        _buildTableRow('Arcanismo', '4'),
-                        _buildTableRow('História', '3'),
-                        _buildTableRow('Investigação', '2'),
-                        _buildTableRow('Natureza', '1'),
-                        _buildTableRow('Religião', '0'),
-                        _buildTableRow('Adestrar Animais', '2'),
-                        _buildTableRow('Intuição', '4'),
-                        _buildTableRow('Medicina', '6'),
-                        _buildTableRow('Percepção', '5'),
-                        _buildTableRow('Sobrevivência', '7'),
-                        _buildTableRow('Atuação', '6'),
-                        _buildTableRow('Enganação', '8'),
-                        _buildTableRow('Intimidação', '9'),
-                        _buildTableRow('Persuasão', '10'),
-                      ]),
+                      child: _buildPericiasTable(),
                     ),
                     const SizedBox(width: 20),
                     Expanded(
-                      child: _buildTable('Teste', [
-                        _buildTableRow('Teste', '1'),
-                        _buildTableRow('Teste', '2'),
-                        _buildTableRow('Teste', '16'),
-                        _buildTableRow('Teste', '3'),
-                        _buildTableRow('Teste', '11'),
-                      ]),
+                      child: Column(
+                        children: [
+                          _buildTesteTable(),
+                          const SizedBox(height: 20),
+                          _buildHabilidadesTable(),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -96,6 +72,110 @@ class Tela_Ficha extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildAtributosTable() {
+    List<Map<String, String>> atributos = [
+      {'Força': '13'},
+      {'Destreza': '16'},
+      {'Constituição': '15'},
+      {'Inteligência': '14'},
+      {'Sabedoria': '11'},
+      {'Carisma': '9'},
+    ];
+
+    return _buildTable(
+        'Atributos',
+        atributos.map((atributo) {
+          String nome = atributo.keys.first;
+          String valor = atributo.values.first;
+          return _buildTableRow(nome, valor);
+        }).toList());
+  }
+
+  Widget _buildStatusTable() {
+    List<Map<String, String>> status = [
+      {'Vida': '50'},
+      {'Vida Temp.': '70'},
+      {'CA': '18'},
+      {'Deslocamento': '9m'},
+    ];
+
+    return _buildTable(
+        'Status',
+        status.map((stat) {
+          String nome = stat.keys.first;
+          String valor = stat.values.first;
+          return _buildTableRow(nome, valor);
+        }).toList());
+  }
+
+  // Tabela de Perícias
+  Widget _buildPericiasTable() {
+    List<Map<String, String>> pericias = [
+      {'Atletismo': '8'},
+      {'Acrobacia': '7'},
+      {'Furtividade': '6'},
+      {'Prestidigitação': '5'},
+      {'Arcanismo': '4'},
+      {'História': '3'},
+      {'Investigação': '2'},
+      {'Natureza': '1'},
+      {'Religião': '0'},
+      {'Adestrar Animais': '2'},
+      {'Intuição': '4'},
+      {'Medicina': '6'},
+      {'Percepção': '5'},
+      {'Sobrevivência': '7'},
+      {'Atuação': '6'},
+      {'Enganação': '8'},
+      {'Intimidação': '9'},
+      {'Persuasão': '10'},
+    ];
+
+    return _buildTable(
+        'Perícias',
+        pericias.map((pericia) {
+          String nome = pericia.keys.first;
+          String valor = pericia.values.first;
+          return _buildTableRow(nome, valor);
+        }).toList());
+  }
+
+  Widget _buildTesteTable() {
+    List<Map<String, String>> testes = [
+      {'Força': '1'},
+      {'Destreza': '3'},
+      {'Constituição': '2'},
+      {'Inteligencia': '2'},
+      {'Sabedoria': '0'},
+      {'Carisma': '-1'},
+    ];
+
+    return _buildTable(
+        'Salvaguardas',
+        testes.map((teste) {
+          String nome = teste.keys.first;
+          String valor = teste.values.first;
+          return _buildTableRow(nome, valor);
+        }).toList());
+  }
+
+  Widget _buildHabilidadesTable() {
+    List<Map<String, String>> habilidades = [
+      {'teste': '???'},
+      {'teste': '???'},
+      {'teste': '???'},
+      {'teste': '???'},
+    ];
+
+    return _buildTable(
+        'Proficiências',
+        habilidades.map((habilidade) {
+          String nome = habilidade.keys.first;
+          String valor = habilidade.values.first;
+          return _buildTableRow(nome, valor);
+        }).toList());
   }
 
   Widget _buildTable(String title, List<TableRow> rows) {

@@ -44,6 +44,13 @@ class Header extends StatelessWidget {
                       ),
                     ],
                   ),
+                  //imagem do personagem
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundColor: const Color.fromARGB(164, 64, 5, 119),
+                    backgroundImage: AssetImage(
+                        'assets/imagem_padrao.png'), // Substitua pelo caminho da imagem do personagem
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
