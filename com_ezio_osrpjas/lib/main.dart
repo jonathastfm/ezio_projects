@@ -12,23 +12,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+ 
 
-  firestore
-        .collection('Users')
-        .doc('jonathastfm')
-        .collection("Personagens")
-        .doc('Altair')
-        .collection("Ficha")
-        .doc('atributos')
-        .update({
-      'For': 12,
-      'Dex': 13,
-      'Con': 18,
-      'Int': 20,
-      'Wis': 14,
-      'Car': 10,
-        });
 
   runApp(const MyApp());
 }
