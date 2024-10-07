@@ -438,11 +438,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
 
 
                   },
-<<<<<<< HEAD
                   child: const Text('Finalizar'),
-=======
-                  child: Text('Submit'),
->>>>>>> 084e2ecf69e4afc24e81f5edaeeef264abd99b12
                 ),
               ],
             ),

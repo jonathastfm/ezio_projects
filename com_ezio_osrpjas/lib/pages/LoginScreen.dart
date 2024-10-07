@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:com_ezio_osrpjas/pages/Ficha/Ficha.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -38,12 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                widget.firestore.collection('Classes').doc("Artifice").collection("Criacao").doc("Equipamento inicial").set({
-                  "Armas": ["Duas armas simples", "Uma besta leve e 20 virotes"],
-                  "Armadura": "Armadura de couro ou uma brunea",
-                  "Ferramentas": ["ferramentas de ladrão", "pacote de explorador"],
-                  "Ouro": 100
-                });
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Header( CharacterId: 'Altair',)));
               },
               child: const Text('Login'),
             ),

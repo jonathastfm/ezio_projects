@@ -1,7 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Tela_Ficha extends StatelessWidget {
-  const Tela_Ficha({super.key});
+class Atributos extends StatefulWidget {
+  const Atributos({super.key, required this.CharacterId});
+  final String CharacterId;
+  @override
+  _AtributosState createState() => _AtributosState();
+}
+
+class _AtributosState extends State<Atributos> {
+  
+
+  
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Map<String, dynamic>? atributos;
+
+
+  Future<void> fetchatributos() async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot = await firestore
+        .collection('Users')
+        .doc('jonathastfm')
+        .collection("Personagens")
+        .doc('Altair')
+        .collection("Ficha")
+        .doc('atributos')
+        .get();
+    setState(() {
+      atributos = snapshot.data();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchatributos();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +65,7 @@ class Tela_Ficha extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildAtributosTable(),
+                          _buildAtributosTable(atributos),
                           const SizedBox(height: 5),
                         ],
                       ),
@@ -73,45 +107,39 @@ class Tela_Ficha extends StatelessWidget {
     );
   }
 
-  Widget _buildAtributosTable() {
-    List<Map<String, Map<String, String>>> atributos = [
-      {
-        'Força': {'valor': '13', 'modificador': '+1'}
-      },
-      {
-        'Destreza': {'valor': '16', 'modificador': '+3'}
-      },
-      {
-        'Constituição': {'valor': '15', 'modificador': '+2'}
-      },
-      {
-        'Inteligência': {'valor': '14', 'modificador': '+2'}
-      },
-      {
-        'Sabedoria': {'valor': '11', 'modificador': '0'}
-      },
-      {
-        'Carisma': {'valor': '9', 'modificador': '-1'}
-      },
+  Widget _buildAtributosTable(Map<String, dynamic>? atributos) {
+    
+    if (atributos == null) {
+      return const CircularProgressIndicator();
+    }
+
+    List<Map<String, String>> atributosMesa = [
+      {'nome': 'Força', 'valor': atributos!['For'].toString(), 'modificador': ((atributos['For'] - 10) ~/ 2).toString() },
+      {'nome': 'Destreza', 'valor': atributos!['Dex'].toString(), 'modificador':((atributos['Dex'] - 10) ~/ 2).toString()},
+      {'nome': 'Constituição', 'valor': atributos!['Con'].toString(), 'modificador': ((atributos['Con'] - 10) ~/ 2).toString()},
+      {'nome': 'Inteligência', 'valor': atributos!['Int'].toString(), 'modificador': ((atributos['Int'] - 10) ~/ 2).toString()},
+      {'nome': 'Sabedoria', 'valor': atributos!['Wis'].toString(), 'modificador': ((atributos['Wis'] - 10) ~/ 2).toString()},
+      {'nome': 'Carisma', 'valor': atributos!['Car'].toString(), 'modificador': ((atributos['Car'] - 10) ~/ 2).toString()},
     ];
 
     return _buildTable(
       'Atributos',
-      atributos.map((atributo) {
-        String nome = atributo.keys.first;
-        String valor = atributo[nome]!['valor']!;
-        String modificador = atributo[nome]!['modificador']!;
-        return _buildTableRowComModificador(nome, valor, modificador);
+      atributosMesa.map((atributo) {
+      String nome = atributo['nome'] ?? '';
+      String valor = atributo['valor'] ?? '';
+      String modificador = atributo['modificador'] ?? '';
+      return _buildTableRowComModificador(nome, valor, modificador);
       }).toList(),
     );
   }
 
   Widget _buildStatusTable() {
     List<Map<String, String>> status = [
-      {'Vida': '50'},
-      {'Vida Temp.': '70'},
-      {'CA': '18'},
-      {'Deslocamento': '9m'},
+      {'Vida': atributos!['Vida'].toString()},
+      {'Vida Temp.': atributos!['VidaTemp'].toString()},
+      {'CA': atributos!['CA'].toString()},
+      {'Deslocamento': atributos!['Desl'].toString()},
+      
     ];
 
     return _buildTable(
@@ -126,24 +154,25 @@ class Tela_Ficha extends StatelessWidget {
 
   Widget _buildPericiasTable() {
     List<Map<String, String>> pericias = [
-      {'Atletismo': '8'},
-      {'Acrobacia': '7'},
-      {'Furtividade': '6'},
-      {'Prestidigitação': '5'},
-      {'Arcanismo': '4'},
-      {'História': '3'},
-      {'Investigação': '2'},
-      {'Natureza': '1'},
-      {'Religião': '0'},
-      {'Adestrar Animais': '2'},
-      {'Intuição': '4'},
-      {'Medicina': '6'},
-      {'Percepção': '5'},
-      {'Sobrevivência': '7'},
-      {'Atuação': '6'},
-      {'Enganação': '8'},
-      {'Intimidação': '9'},
-      {'Persuasão': '10'},
+
+      {'Atletismo': atributos!['Atletismo'].toString()},
+      {'Acrobacia': atributos!['Acrobacia'].toString()},
+      {'Furtividade': atributos!['Furtividade'].toString()},
+      {'Prestidigitação': atributos!['Prestidigitação'].toString()},
+      {'Arcanismo': atributos!['Arcanismo'].toString()},
+      {'História': atributos!['História'].toString()},
+      {'Investigação': atributos!['Investigação'].toString()},
+      {'Natureza': atributos!['Natureza'].toString()},
+      {'Religião': atributos!['Religião'].toString()},
+      {'Adestrar Animais': atributos!['Adestrar Animais'].toString()},
+      {'Intuição': atributos!['Intuição'].toString()},
+      {'Medicina': atributos!['Medicina'].toString()},
+      {'Percepção': atributos!['Percepção'].toString()},
+      {'Sobrevivência': atributos!['Sobrevivência'].toString()},
+      {'Atuação': atributos!['Atuação'].toString()},
+      {'Enganação': atributos!['Enganação'].toString()},
+      {'Intimidação': atributos!['Intimidação'].toString()},
+      {'Persuasão': atributos!['Persuasão'].toString()},
     ];
 
     return _buildTable(

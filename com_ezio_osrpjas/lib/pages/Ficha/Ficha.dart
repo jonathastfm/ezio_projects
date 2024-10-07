@@ -1,11 +1,42 @@
-import 'package:com_ezio_osrpjas/pages/Habilidades_Ficha.dart';
-import 'package:com_ezio_osrpjas/pages/Itens_Ficha.dart';
-import 'package:com_ezio_osrpjas/pages/Magias_Ficha.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:com_ezio_osrpjas/pages/Ficha/Habilidades.dart';
+import 'package:com_ezio_osrpjas/pages/Ficha/Itens.dart';
+import 'package:com_ezio_osrpjas/pages/Ficha/Magias.dart';
 import 'package:flutter/material.dart';
-import 'package:com_ezio_osrpjas/pages/Tela_Ficha.dart';
+import 'package:com_ezio_osrpjas/pages/Ficha/Atributos.dart';
 
-class Header extends StatelessWidget {
-  const Header({Key? key}) : super(key: key);
+class Header extends StatefulWidget {
+  final String CharacterId;
+
+  Header({Key? key, required this.CharacterId}) : super(key: key);
+
+  @override
+  _HeaderState createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Map<String, dynamic>? info;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchInfo();
+  }
+
+  Future<void> fetchInfo() async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot = await firestore
+        .collection('Users')
+        .doc('jonathastfm')
+        .collection("Personagens")
+        .doc('Altair')
+        .collection("Ficha")
+        .doc('info')
+        .get();
+    setState(() {
+      info = snapshot.data();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +63,7 @@ class Header extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Nome: [?? nome ??]',
+                        'Nome: ${info?['nome']?.toString() ?? 'Loading...'}',
                         style: TextStyle(
                           fontSize: 18,
                           color: const Color.fromARGB(
@@ -40,7 +71,7 @@ class Header extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Raça: [?? raça ??]',
+                        'Raça: ${info?['raca']?.toString() ?? 'Loading...'}',
                         style: TextStyle(
                           fontSize: 18,
                           color: const Color.fromARGB(255, 0, 0, 0),
@@ -60,14 +91,14 @@ class Header extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Classe: [?? classe ??]',
+                        'Classe: ${info?['classe']?.toString() ?? 'Loading...'}',
                         style: TextStyle(
                           fontSize: 18,
                           color: const Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
                       Text(
-                        'Nível: [?? nível ??]',
+                        'Nível: ${info?['nivel']?.toString() ?? 'Loading...'}',
                         style: TextStyle(
                           fontSize: 18,
                           color: const Color.fromARGB(255, 0, 0, 0),
@@ -112,7 +143,7 @@ class Header extends StatelessWidget {
               ),
               body: TabBarView(
                 children: [
-                  const Tela_Ficha(),
+                  Atributos(CharacterId: widget.CharacterId),
                   Habilidades_Ficha(),
                   Magias_Ficha(),
                   Itens_Ficha(),
