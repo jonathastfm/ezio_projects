@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:com_ezio_osrpjas/pages/Ficha/Ficha.dart';
 import 'package:com_ezio_osrpjas/pages/menu/Menu_Page.dart'; // Add this line
+import 'package:com_ezio_osrpjas/services/AuthService.dart'; // Ensure this line is correct
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -45,6 +48,37 @@ class _LoginScreenState extends State<LoginPage> {
 
     });
   }
+
+  login() async {
+    try{
+      await context
+          .read< AuthService >()
+          .login(emailController.text, passwordController.text);
+
+    } on AuthException catch(e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  registrar(){
+    try{
+      context
+          .read< AuthService >()
+          .registrar(emailController.text, passwordController.text);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
     
   @override
   Widget build(BuildContext context) {
@@ -65,6 +99,7 @@ class _LoginScreenState extends State<LoginPage> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        //campo email
                         TextFormField(
                           controller: emailController,
                           decoration: InputDecoration(
@@ -79,6 +114,7 @@ class _LoginScreenState extends State<LoginPage> {
                           },
                         ),
                         const SizedBox(height: 20),
+                        //campo senha
                         TextFormField(
                           obscureText: true,
                           controller: passwordController,
@@ -90,27 +126,45 @@ class _LoginScreenState extends State<LoginPage> {
                             if (value!.isEmpty) {
                               return 'Senha é obrigatória';
                             }
+                            else if (value.length < 6) {
+                              return 'Senha deve ter no mínimo 6 caracteres';
+                            }
                             return null;
                           },
                         ),
                         SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              if (isLogin) {
-                                // Login
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => MenuPage()),
-                                );
-                              } else {
-                                // Criar Conta
-                                
+                        //botão de ação
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(actionButton),
+                              ],
+                            ),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                if (isLogin) {
+                                  // Login
+                                  login();
+
+                                } else {
+                                  // Criar Conta
+                                  registrar();
+                                }
                               }
-                            }
-                          },
-                          child: Text(actionButton),
+                            },
+                            
+                          ),
                         ),
+                        TextButton(
+                          onPressed: () {
+                            setFormAction(!isLogin);
+                          },
+                          child: Text(toggleButton),
+                        ),
+                      
                       ],
                   )),
                   
