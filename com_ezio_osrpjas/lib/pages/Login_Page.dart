@@ -9,9 +9,8 @@ import 'package:provider/provider.dart';
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   
-
   @override
   State<LoginPage> createState() => _LoginScreenState();
 }
@@ -25,6 +24,8 @@ class _LoginScreenState extends State<LoginPage> {
   late String titulo;
   late String actionButton;
   late String toggleButton;
+
+  bool loading = false;
 
   @override
   void initState() {
@@ -50,34 +51,59 @@ class _LoginScreenState extends State<LoginPage> {
   }
 
   login() async {
-    try{
+    setState(() {
+      loading = true;
+    });
+    
+    try{      
       await context
           .read< AuthService >()
           .login(emailController.text, passwordController.text);
 
+      setState(() {
+              loading = false;
+            });
+
     } on AuthException catch(e) {
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(e.message),
-          backgroundColor: Colors.red,
+          content: Text(e.message)
         ),
       );
+
+      setState(() {
+        loading = false;
+      });
+
     }
   }
 
   registrar(){
+    setState(() {
+        loading = true;
+      });
     try{
+      
       context
           .read< AuthService >()
           .registrar(emailController.text, passwordController.text);
+
+      setState(() {
+              loading = false;
+            });
+      
     } on AuthException catch (e) {
+      setState(() {
+        loading = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.message),
           backgroundColor: Colors.red,
         ),
       );
-    }
+        }
   }
     
   @override
@@ -139,7 +165,17 @@ class _LoginScreenState extends State<LoginPage> {
                           child: ElevatedButton(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: (loading)? [
+                                const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ] :
+                              
+                              [
                                 Text(actionButton),
                               ],
                             ),

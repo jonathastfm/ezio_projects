@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthException implements Exception {
-  final String message;
+  String message;
   AuthException(this.message);
-
-  @override
-  String toString() => 'AuthException: $message';
 }
 
 
 
 class AuthService extends ChangeNotifier{
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   User? user;
 
@@ -45,8 +42,10 @@ class AuthService extends ChangeNotifier{
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('A senha é muito fraca');
-      } else if (e.code == 'email-already-in-use') {
-        throw AuthException('O email já está em uso');
+      } 
+      else if (e.code == 'email-already-in-use') {
+        AuthException('O email já está em uso');
+
       }
     } catch (e) {
       throw AuthException('Erro desconhecido');
