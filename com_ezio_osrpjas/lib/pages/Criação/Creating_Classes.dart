@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Creating_Classes extends StatefulWidget {
-  const Creating_Classes({super.key});
+class Criar_Classe extends StatefulWidget {
+  const Criar_Classe({super.key});
 
   @override
   
 
-  State<Creating_Classes> createState() => _Creating_ClassesState();
+  State<Criar_Classe> createState() => _Criar_ClasseState();
 }
 
-class _Creating_ClassesState extends State<Creating_Classes> {
+class _Criar_ClasseState extends State<Criar_Classe> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance; 
 
