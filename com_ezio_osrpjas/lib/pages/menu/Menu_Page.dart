@@ -1,4 +1,5 @@
 // Version: 1.0
+import 'package:com_ezio_osrpjas/pages/Classes/personagens.dart';
 import 'package:com_ezio_osrpjas/pages/Cria%C3%A7%C3%A3o/Creating_Classes.dart';
 import 'package:com_ezio_osrpjas/pages/Cria%C3%A7%C3%A3o/Criar_personagem.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +54,43 @@ class _MenuPageState extends State<MenuPage> with SingleTickerProviderStateMixin
 }
 
 class PersonagensTab extends StatelessWidget {
+
+  final ListaPersonagens = [
+    Personagem(1, 'Ezio', 21, 'Ladino', 1),
+    Personagem(2, 'Altair', 25, 'Artifice', 1),
+    Personagem(3, 'Connor', 20, 'Assassino', 1),
+    Personagem(4, 'Edward', 30, 'Pirata', 1),
+    Personagem(5, 'Shay', 35, 'Templário', 1),
+  ];
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Todos os Personagens'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Seus Personagens', style: TextStyle(fontSize: 24)),
+          Divider(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: ListaPersonagens.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  color: Colors.deepPurple[100],
+                  shadowColor: Colors.deepPurple,
+                  child: ListTile(
+                    title: Text(ListaPersonagens[index].nome),
+                    subtitle: Text(ListaPersonagens[index].classe),
+                    trailing: Text('Nível: ${ListaPersonagens[index].nivel}'),
+                    onTap: () {
+                      ListaPersonagens[index].subirNivel();
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

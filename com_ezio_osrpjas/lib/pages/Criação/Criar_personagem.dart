@@ -223,27 +223,29 @@ class _Criar_PersonagemState extends State<Criar_Personagem> {
             title: const Text('Atributos'),
             content: Column(
               children: List.generate(habilidades.length, (index) {
-                return Row(
-                  children: [
-                    Text(habilidades[index], style: const TextStyle(fontSize: 20)),
-                    const SizedBox(width: 10),
-                    DropdownButton<String>(
-                      value: valoresHabilidadesEscolhidos[index].toString(),
-                      items: List.generate(20, (i) {
-                        return DropdownMenuItem<String>(
-                          value: (i + 1).toString(),
-                          child: Text((i + 1).toString()),
-                        );
-                      }),
-                      onChanged: (value) {
-                        setState(() {
-                          valoresHabilidadesEscolhidos[index] = int.parse(value!);
-                        });
-                      },
-                    ),
-                  ],
-                );
-              }),
+  return Row(
+    children: [
+      Text(habilidades[index], style: const TextStyle(fontSize: 20)),
+      const SizedBox(width: 10),
+      DropdownButton<String>(
+        value: valoresHabilidadesEscolhidos[index] > 0 && valoresHabilidadesEscolhidos[index] <= 20
+            ? valoresHabilidadesEscolhidos[index].toString()
+            : '1',
+        items: List.generate(20, (i) {
+          return DropdownMenuItem<String>(
+            value: (i + 1).toString(),
+            child: Text((i + 1).toString()),
+          );
+        }),
+        onChanged: (value) {
+          setState(() {
+            valoresHabilidadesEscolhidos[index] = int.parse(value!);
+          });
+        },
+      ),
+    ],
+  );
+}),
             ),
           ),
           
