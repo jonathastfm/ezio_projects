@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Creating_Classes extends StatefulWidget {
-  const Creating_Classes({super.key});
+class Criar_Classe extends StatefulWidget {
+  const Criar_Classe({super.key});
 
   @override
   
 
-  State<Creating_Classes> createState() => _Creating_ClassesState();
+  State<Criar_Classe> createState() => _Criar_ClasseState();
 }
 
-class _Creating_ClassesState extends State<Creating_Classes> {
+class _Criar_ClasseState extends State<Criar_Classe> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance; 
 
@@ -66,7 +66,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Creating Classes'),
+        title: const Text('Creating Classes'),
         
       ),
       body: Stepper(
@@ -96,12 +96,12 @@ class _Creating_ClassesState extends State<Creating_Classes> {
 
           //Nome da classe
           Step(
-            title: Text("Nome da Classe"), 
+            title: const Text("Nome da Classe"), 
             content: SizedBox(
               width: 300,
               child: TextField(
                 controller: nome,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Nome da Classe',
                 ),
                 onChanged: (text) {
@@ -118,7 +118,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
             title: const Text('Dados de vida'),
             content: Row(
               children: [
-                Text("Dado de Vida: ", style: TextStyle(fontSize: 20),),
+                const Text("Dado de Vida: ", style: TextStyle(fontSize: 20),),
                 DropdownButton<int>(
                   value: vida!=0?vida:null,
                   items: List.generate(4, (index) => (index*2)+6).map((int value) {
@@ -146,7 +146,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
               children: [
 
                 //Armaduras
-                Text("Armaduras",   style: TextStyle(fontSize: 20),),
+                const Text("Armaduras",   style: TextStyle(fontSize: 20),),
                 
                 ListView.builder(
                   shrinkWrap: true,
@@ -169,7 +169,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
                   },
                 ), 
                 //Armas
-                Text("Armas",   style: TextStyle(fontSize: 20),),
+                const Text("Armas",   style: TextStyle(fontSize: 20),),
 
                 ListView.builder(
                   shrinkWrap: true,
@@ -193,7 +193,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
                 ),
 
                 //Ferramentas  
-                Text("Ferramentas",   style: TextStyle(fontSize: 20),),
+                const Text("Ferramentas",   style: TextStyle(fontSize: 20),),
 
                 ListView.builder(
                   shrinkWrap: true,
@@ -224,7 +224,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
           
           //Pericias
           Step(
-            title: Text("Pericias"), 
+            title: const Text("Pericias"), 
 
             content: Column(
               children: [
@@ -438,7 +438,7 @@ class _Creating_ClassesState extends State<Creating_Classes> {
 
 
                   },
-                  child: Text('Submit'),
+                  child: const Text('Finalizar'),
                 ),
               ],
             ),

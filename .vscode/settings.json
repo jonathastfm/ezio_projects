@@ -1,0 +1,7 @@
+{
+<<<<<<< HEAD
+    "emulator.emulatorPathWindows": "C:\\Users\\alexb\\AppData\\Local\\Android\\Sdk\\tools"
+=======
+    "cmake.ignoreCMakeListsMissing": false
+>>>>>>> 084e2ecf69e4afc24e81f5edaeeef264abd99b12
+}
